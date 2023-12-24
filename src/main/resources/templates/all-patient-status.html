@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+
+<head>
+	<link rel="stylesheet" href="/css/style.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>all patient status</title>
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+
+<body>
+	<!-- navbar -->
+	<div th:replace="~{topnav :: topnav}">...</div>
+	<h2>All Patient Status</h2>
+
+	<table class="table">
+		<tr>
+			<th> Patient Id </th>
+			<th>Patient Name</th>
+			<th>Status</th>
+			<th>Medicine</th>
+			<th>Re Examination Date</th>
+			<th>update</th>
+			<div sec:authorize="hasAnyAuthority('ADMIN')">
+				<th>delete</th>
+			</div>
+		</tr>
+		<tr th:each="s: ${status}">
+			<td th:text="${patient.id}"></td>
+			<td th:text="${patient.first_name}+' '+${patient.last_name}"></td>
+			<td th:text="${s.state}"></td>
+			<td th:text="${s.medicine}"></td>
+			<td th:text="${s.re_examination_date}"></td>
+			<td>
+				<a class="btn btn-secondary" href="#" th:href="@{'/patient/updateStatus/'+${s.id}}" role="button">Update
+				</a>
+			</td>
+			<div sec:authorize="hasAnyAuthority('ADMIN')">
+				<td>
+					<a class="btn btn-danger" href="#" th:href="@{'/patient/deleteStatus/'+${s.id}}"
+						role="button">Delete
+					</a>
+				</td>
+			</div>
+		</tr>
+	</table>
+	<br>
+
+	<a class="btn btn-primary" href="#" th:href="@{'/patient/addStatus/'+${patient.id}}" role="button">Add Status
+	</a>
+
+
+
+	<!-- bootstrapbody -->
+	<div th:replace="~{bootstrapbody :: bootstrapbody}">...</div>
+
+</body>
+
+</html>

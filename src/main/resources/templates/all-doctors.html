@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<link rel="stylesheet" href="/css/style.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>All Doctors</title>
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+
+<body>
+	<!-- navbar -->
+	<div th:replace="~{topnav :: topnav}">...</div>
+	<h2>All Doctors</h2>
+	<hr>
+	<div class="search">
+		<form method="get" action="/doctor/search">
+			<input type="text" name="name" list="doctors" placeholder="Enter doctor name..." />
+			<datalist id="doctors" name="id">
+				<option th:each="doc: ${doctors}"
+					th:value="${doc.employee.first_name}+' '+${doc.employee.last_name}">
+				</option>
+			</datalist>	
+			<button type="submit" class="btn btn-success btn-sm">Search</button>		
+		</form>
+	</div>
+	<br>
+	<span th:if="${doctors1!=null}">
+<table class="table">
+		<tr>
+			<div sec:authorize="hasAnyAuthority('ADMIN','NURSE')">
+			<th scope="col">Doctor ID</th>
+			</div>
+			<th scope="col">Doctor Name</th>
+			<th scope="col">Working Days</th>
+			<th scope="col">Working Hours</th>
+			<th scope="col">Examination Price</th>
+			<th scope="col">Description</th>
+			<th scope="col">Job</th>
+			<th scope="col">Department</th>
+			<div sec:authorize="hasAnyAuthority('ADMIN','NURSE')">
+			<th scope="col">update</th>
+			</div>
+			<div sec:authorize="hasAnyAuthority('ADMIN')">
+				<th scope="col">delete</th>
+			</div>
+		</tr>
+
+		<tr th:each="doc: ${doctors1}">
+			<div sec:authorize="hasAnyAuthority('ADMIN','NURSE')">
+			<td th:text="${doc.id}"></td>
+			</div>
+			<td th:text="${doc.employee.first_name}+' '+${doc.employee.last_name}"></td>
+			<td th:text="${doc.working_days}"></td>
+			<td th:text="${doc.working_hours}"></td>
+			<td th:text="${doc.examination_price}"></td>
+			<td th:text="${doc.description}"></td>
+			<td th:text="Doctor"></td>
+			<td th:text="${doc.department.name}"></td>
+			<div sec:authorize="hasAnyAuthority('ADMIN','NURSE')">
+			<td>
+				<a class="btn btn-secondary" href="#" th:href="@{'/doctor/updateDoctor/'+${doc.id}}"
+					role="button">Update
+				</a>
+			</td>
+			</div>
+			<div sec:authorize="hasAnyAuthority('ADMIN')">
+				<td>
+					<a class="btn btn-danger" href="#" th:href="@{'/doctor/deleteDoctor/'+${doc.id}}"
+						role="button">Delete
+					</a>
+				</td>
+			</div>
+		</tr>
+	</table>
+
+	<br>
+	<div sec:authorize="hasAnyAuthority('ADMIN','NURSE')">
+	<a class="btn btn-primary" href="#" th:href="@{/employee/allEmployees}" role="button">Go To All Employees Page</a>	
+	</div>
+	</span>
+	
+<span th:if="${doctors1==null}">
+	<table class="table">
+		<tr>
+			<div sec:authorize="hasAnyAuthority('ADMIN','NURSE')">
+			<th scope="col">Doctor ID</th>
+			</div>
+			<th scope="col">Doctor Name</th>
+			<th scope="col">Working Days</th>
+			<th scope="col">Working Hours</th>
+			<th scope="col">Examination Price</th>
+			<th scope="col">Description</th>
+			<th scope="col">Job</th>
+			<th scope="col">Department</th>
+			<div sec:authorize="hasAnyAuthority('ADMIN','NURSE')">
+			<th scope="col">update</th>
+			</div>
+			<div sec:authorize="hasAnyAuthority('ADMIN')">
+				<th scope="col">delete</th>
+			</div>
+		</tr>
+
+		<tr th:each="doc: ${doctors}">
+			<div sec:authorize="hasAnyAuthority('ADMIN','NURSE')">
+			<td th:text="${doc.id}"></td>
+			</div>
+			<td th:text="${doc.employee.first_name}+' '+${doc.employee.last_name}"></td>
+			<td th:text="${doc.working_days}"></td>
+			<td th:text="${doc.working_hours}"></td>
+			<td th:text="${doc.examination_price}"></td>
+			<td th:text="${doc.description}"></td>
+			<td th:text="Doctor"></td>
+			<td th:text="${doc.department.name}"></td>
+			<div sec:authorize="hasAnyAuthority('ADMIN','NURSE')">
+			<td>
+				<a class="btn btn-secondary" href="#" th:href="@{'/doctor/updateDoctor/'+${doc.id}}"
+					role="button">Update
+				</a>
+			</td>
+			</div>
+			<div sec:authorize="hasAnyAuthority('ADMIN')">
+				<td>
+					<a class="btn btn-danger" href="#" th:href="@{'/doctor/deleteDoctor/'+${doc.id}}"
+						role="button">Delete
+					</a>
+				</td>
+			</div>
+		</tr>
+	</table>
+
+	<br>
+	<div sec:authorize="hasAnyAuthority('ADMIN','NURSE')">
+	<a class="btn btn-primary" href="#" th:href="@{/employee/allEmployees}" role="button">Go To All Employees Page</a>
+	</div>
+</span>
+
+	<!-- bootstrapbody -->
+	<div th:replace="~{bootstrapbody :: bootstrapbody}">...</div>
+
+</body>
+
+</html>

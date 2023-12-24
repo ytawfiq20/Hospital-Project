@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+
+<head>
+	<link rel="stylesheet" href="/css/style.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>All Operations</title>
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+
+<body>
+	<!-- navbar -->
+	<div th:replace="~{topnav :: topnav}">...</div>
+	<h2>All Operations</h2>
+	<table class="table">
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>update</th>
+			<div sec:authorize="hasAnyAuthority('ADMIN')">
+				<th>delete</th>
+			</div>
+		</tr>
+		<tr th:each="op: ${ops}">
+			<td th:text="${op.id}"></td>
+			<td th:text="${op.name}"></td>
+			<td>
+				<a class="btn btn-secondary" href="#" th:href="@{'/operation/updateOperation/'+${op.id}}"
+					role="button">Update
+				</a>
+			</td>
+			<div sec:authorize="hasAnyAuthority('ADMIN')">
+				<td>
+					<a class="btn btn-danger" href="#" th:href="@{'/operation/deleteOperation/'+${op.id}}"
+						role="button">Delete
+					</a>
+				</td>
+			</div>
+		</tr>
+	</table>
+	<br>
+
+	<a class="btn btn-primary" href="#" th:href="@{/operation/addOperation}" th:text="AddOperation" role="button">Add
+		Operation
+	</a>
+
+
+	<!-- bootstrapbody -->
+	<div th:replace="~{bootstrapbody :: bootstrapbody}">...</div>
+
+</body>
+
+</html>

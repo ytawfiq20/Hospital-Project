@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+
+<head>
+	<link rel="stylesheet" href="/css/style.css">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<title>Add Department</title>
+</head>
+
+<body>
+	<!-- navbar -->
+	<div th:replace="~{topnav :: topnav}">...</div>
+
+	<h2>Add Department</h2>
+	<hr>
+	<span th:if="${Error != null}">
+		<div class="alert alert-danger" role="alert">
+			<p th:text="${Error}"></p>
+		</div>
+	</span>
+
+	<form action="/department/addDepartment" method="post">
+		<div class="form-group">
+			<label for="exampleInputEmail1">Department Name</label>
+			<input type="text" class="form-control" id="exampleInputEmail1" name="name" aria-describedby="emailHelp"
+				placeholder="Enter department name">
+		</div>
+		<button type="submit" class="btn btn-primary">Add</button>
+	</form>
+
+
+	<!-- bootstrapbody -->
+	<div th:replace="~{bootstrapbody :: bootstrapbody}">...</div>
+
+</body>
+
+</html>

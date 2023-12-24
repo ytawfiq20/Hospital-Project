@@ -1,0 +1,22 @@
+body, html {
+margin-left:1%;
+margin-right:1%;
+
+}
+
+.search-box .btn-light {
+    border: 1px solid #ced4da;
+}
+.search-box col-md-5{
+	margin-top:3%;
+}
+
+.search {
+  display:flex;
+  justify-content: right;
+}
+
+.home-search {
+  display:flex;
+  justify-content: center;
+}

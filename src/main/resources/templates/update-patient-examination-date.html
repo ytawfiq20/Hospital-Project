@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+
+<head>
+	<link rel="stylesheet" href="/css/style.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<title>Update patient Examination Date</title>
+</head>
+
+<body>
+	<!-- navbar -->
+	<div th:replace="~{topnav :: topnav}">...</div>
+
+	<h2>Update patient Examination Date</h2>
+
+	<hr>
+	<span th:if="${Error != null}">
+		<div class="alert alert-danger" role="alert">
+			<p th:text="${Error}"></p>
+		</div>
+	</span>
+
+	<form action="/patient/updateExaminationDate" method="post">
+		<div class="form-group">
+			<input type="text" name="id" th:value="${date.id}" hidden />
+		</div>
+		<div class="form-group">
+			<label for="exampleInputEmail1">Examination Date</label>
+			<input type="datetime-local" class="form-control" id="exampleInputEmail1" name="date"
+				th:value="${date.date}" aria-describedby="emailHelp">
+		</div>
+		<button type="submit" class="btn btn-primary">Update</button>
+	</form>
+
+
+
+	<!-- bootstrapbody -->
+	<div th:replace="~{bootstrapbody :: bootstrapbody}">...</div>
+
+</body>
+
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+
+<head>
+	<link rel="stylesheet" href="/css/style.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>All Workers</title>
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+
+<body>
+	<!-- navbar -->
+	<div th:replace="~{topnav :: topnav}">...</div>
+	<h2>All Workers</h2>
+	<hr>
+	<div class="search">
+		<form method="get" action="/worker/search">
+			<input type="text" name="name" list="doctors" placeholder="Enter worker name..." />
+			<datalist id="doctors" name="id">
+				<option th:each="worker: ${workers}"
+					th:value="${worker.employee.first_name}+' '+${worker.employee.last_name}">
+				</option>
+			</datalist>	
+			<button type="submit" class="btn btn-success btn-sm">Search</button>		
+		</form>
+	</div>
+	<br>
+<span th:if="${workers1!=null}">
+<table class="table">
+		<tr>
+			<th>Worker ID</th>
+			<th>Worker Name</th>
+			<th>Working Days</th>
+			<th>Working Hours</th>
+			<th>Job</th>
+			<th>update</th>
+			<div sec:authorize="hasAnyAuthority('ADMIN')">
+				<th>delete</th>
+			</div>
+		</tr>
+		<tr th:each="worker: ${workers1}">
+			<td th:text="${worker.id}"></td>
+			<td th:text="${worker.employee.first_name}+' '+${worker.employee.last_name}"></td>
+			<td th:text="${worker.working_days}"></td>
+			<td th:text="${worker.working_hours}"></td>
+			<td th:text="Worker"></td>
+			<td>
+				<a class="btn btn-secondary" href="#" th:href="@{'/worker/updateWorker/'+${worker.id}}"
+					role="button">Update
+				</a>
+			</td>
+			<div sec:authorize="hasAnyAuthority('ADMIN')">
+				<td>
+					<a class="btn btn-danger" href="#" th:href="@{'/worker/deleteWorker/'+${worker.id}}"
+						role="button">Delete
+					</a>
+				</td>
+			</div>
+		</tr>
+	</table>
+
+	<br>
+	<a class="btn btn-primary" href="#" th:href="@{/employee/allEmployees}" role="button">Go To All Employees Page</a>
+
+</span>
+<span th:if="${workers1==null}">
+	<table class="table">
+		<tr>
+			<th>Worker ID</th>
+			<th>Worker Name</th>
+			<th>Working Days</th>
+			<th>Working Hours</th>
+			<th>Job</th>
+			<th>update</th>
+			<div sec:authorize="hasAnyAuthority('ADMIN')">
+				<th>delete</th>
+			</div>
+		</tr>
+		<tr th:each="worker: ${workers}">
+			<td th:text="${worker.id}"></td>
+			<td th:text="${worker.employee.first_name}+' '+${worker.employee.last_name}"></td>
+			<td th:text="${worker.working_days}"></td>
+			<td th:text="${worker.working_hours}"></td>
+			<td th:text="Worker"></td>
+			<td>
+				<a class="btn btn-secondary" href="#" th:href="@{'/worker/updateWorker/'+${worker.id}}"
+					role="button">Update
+				</a>
+			</td>
+			<div sec:authorize="hasAnyAuthority('ADMIN')">
+				<td>
+					<a class="btn btn-danger" href="#" th:href="@{'/worker/deleteWorker/'+${worker.id}}"
+						role="button">Delete
+					</a>
+				</td>
+			</div>
+		</tr>
+	</table>
+
+	<br>
+	<a class="btn btn-primary" href="#" th:href="@{/employee/allEmployees}" role="button">Go To All Employees Page</a>
+</span>
+
+	<!-- bootstrapbody -->
+	<div th:replace="~{bootstrapbody :: bootstrapbody}">...</div>
+
+</body>
+
+</html>

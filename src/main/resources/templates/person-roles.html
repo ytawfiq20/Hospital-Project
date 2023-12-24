@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+
+<head>
+	<link rel="stylesheet" href="/css/style.css">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<title>Person Roles</title>
+</head>
+
+<body>
+
+	<!-- navbar -->
+	<div th:replace="~{topnav :: topnav}">...</div>
+
+	<h2>Person Roles</h2>
+
+
+	<table class="table">
+		<tr>
+			<th>Person ID</th>
+			<th>Person Name</th>
+			<th>Role ID</th>
+			<th>Person Roles</th>
+			<th>update</th>
+			<th>delete</th>
+		</tr>
+		<tr th:each="r: ${roles}">
+			<td th:text="${person.id}"></td>
+			<td th:text="${person.first_name}+' '+${person.last_name}"></td>
+			<td th:text="${r.id}"></td>
+			<td th:text="${r.name}"></td>
+			<td>
+				<a class="btn btn-secondary " href="#" th:href="@{'/admin/updateRole/'+${r.id}}" role="button">Update
+				</a>
+			</td>
+			<td>
+				<a class="btn btn-danger " href="#" th:href="@{'/admin/deleteRole/'+${r.id}}" role="button">Delete
+				</a>
+			</td>
+		</tr>
+	</table>
+	<br>
+	<a class="btn btn-primary " href="#" th:href="@{'/admin/addRole/'+${person.id}}" role="button">Add Role
+	</a>
+
+
+	<!-- bootstrapbody -->
+	<div th:replace="~{bootstrapbody :: bootstrapbody}">...</div>
+
+
+</body>
+
+</html>

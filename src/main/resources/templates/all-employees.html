@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+
+<head>
+	<link rel="stylesheet" href="/css/style.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>All Employees</title>
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+
+<body>
+	<!-- navbar -->
+	<div th:replace="~{topnav :: topnav}">...</div>
+	<h2>All Employees</h2>
+	<hr>
+	<div class="search">
+		<form method="get" action="/employee/search">
+			<input type="text" name="name" list="employees" placeholder="Enter employee name..." />
+			<datalist id="employees" name="id">
+				<option th:each="emp: ${employees}"
+					th:value="${emp.first_name} + ' ' + ${emp.last_name}">
+				</option>
+			</datalist>	
+			<button type="submit" class="btn btn-success btn-sm">Search</button>		
+		</form>
+	</div>
+	<br>
+<span th:if="${employees1==null}">
+	<table class="table">
+		<tr>
+			<th scope="col">ID</th>
+			<th scope="col">Name</th>
+			<th scope="col">Email</th>
+			<th scope="col">Phone Number</th>
+			<th scope="col">Created At</th>
+			<th scope="col">Last Updated On</th>
+			<th scope="col">Employee Job</th>
+			<th scope="col">update</th>
+			<div sec:authorize="hasAnyAuthority('ADMIN')">
+				<th scope="col">delete</th>
+			</div>
+		</tr>
+		<tr th:each="emp: ${employees}">
+			<td th:text="${emp.id}"></td>
+			<td th:text="${emp.first_name} + ' ' + ${emp.last_name}"></td>
+			<td th:text="${emp.email}"></td>
+			<td th:text="${emp.phone_number}"></td>
+			<td th:text="${emp.created_at}"></td>
+			<td th:text="${emp.updated_at}"></td>
+			<td>
+				<span th:if="${emp.is_employed==0}">
+					<a class="btn btn-primary" href="#" th:href="@{'/employee/chooseJob/'+${emp.id}}" role="button">Add
+						Job
+					</a>
+				</span>
+				<span th:if="${emp.is_employed==1}">
+					<p th:text="${emp.job_title}"></p>
+				</span>
+			</td>
+			<td>
+				<a class="btn btn-secondary" href="#" th:href="@{'/employee/updateEmployee/'+${emp.id}}"
+					role="button">Update</a>
+			</td>
+			<div sec:authorize="hasAnyAuthority('ADMIN')">
+				<td>
+					<a class="btn btn-danger" href="#" th:href="@{'/employee/deleteEmployee/'+${emp.id}}"
+						role="button">Delete</a>
+				</td>
+			</div>
+		</tr>
+	</table>
+	<br>
+	<a class="btn btn-primary" href="#" th:href="@{/employee/addEmployee}" role="button">Add Employee</a>
+</span>
+
+<span th:if="${employees1!=null}">
+	<table class="table">
+		<tr>
+			<th scope="col">ID</th>
+			<th scope="col">Name</th>
+			<th scope="col">Email</th>
+			<th scope="col">Phone Number</th>
+			<th scope="col">Created At</th>
+			<th scope="col">Last Updated On</th>
+			<th scope="col">Employee Job</th>
+			<th scope="col">update</th>
+			<div sec:authorize="hasAnyAuthority('ADMIN')">
+				<th scope="col">delete</th>
+			</div>
+		</tr>
+		<tr th:each="emp: ${employees1}">
+			<td th:text="${emp.id}"></td>
+			<td th:text="${emp.first_name} + ' ' + ${emp.last_name}"></td>
+			<td th:text="${emp.email}"></td>
+			<td th:text="${emp.phone_number}"></td>
+			<td th:text="${emp.created_at}"></td>
+			<td th:text="${emp.updated_at}"></td>
+			<td>
+				<span th:if="${emp.is_employed==0}">
+					<a class="btn btn-primary" href="#" th:href="@{'/employee/chooseJob/'+${emp.id}}" role="button">Add
+						Job
+					</a>
+				</span>
+				<span th:if="${emp.is_employed==1}">
+					<p th:text="${emp.job_title}"></p>
+				</span>
+			</td>
+			<td>
+				<a class="btn btn-secondary" href="#" th:href="@{'/employee/updateEmployee/'+${emp.id}}"
+					role="button">Update</a>
+			</td>
+			<div sec:authorize="hasAnyAuthority('ADMIN')">
+				<td>
+					<a class="btn btn-danger" href="#" th:href="@{'/employee/deleteEmployee/'+${emp.id}}"
+						role="button">Delete</a>
+				</td>
+			</div>
+		</tr>
+	</table>
+	<br>
+	<a class="btn btn-primary" href="#" th:href="@{/employee/addEmployee}" role="button">Add Employee</a>	
+	<br><br>
+	<a class="btn btn-secondary" href="#" th:href="@{/employee/allEmployees}" role="button">All Employees</a>	
+</span>
+	<!-- bootstrapbody -->
+	<div th:replace="~{bootstrapbody :: bootstrapbody}">...</div>
+
+</body>
+
+</html>

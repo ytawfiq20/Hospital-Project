@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+
+<head>
+	<link rel="stylesheet" href="/css/style.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<title>Staff Operation Info</title>
+</head>
+
+<body>
+	<!-- navbar -->
+	<div th:replace="~{topnav :: topnav}">...</div>
+	<h2>Staff Operation Info</h2>
+
+	<h2>Doctors</h2>
+	<table class="table">
+		<tr>
+			<th>Doctor Id</th>
+			<th>Doctor Name</th>
+		</tr>
+		<tr th:each="doc: ${doctors}">
+			<td th:text="${doc.key}"></td>
+			<td th:text="${doc.value}"></td>
+		</tr>
+	</table>
+
+	<h2>Nurses</h2>
+	<table class="table">
+		<tr>
+			<th>Nurse Id</th>
+			<th>Nurse Name</th>
+		</tr>
+		<tr th:each="n: ${nurses}">
+			<td th:text="${n.key}"></td>
+			<td th:text="${n.value}"></td>
+		</tr>
+	</table>
+
+
+	<!-- bootstrapbody -->
+	<div th:replace="~{bootstrapbody :: bootstrapbody}">...</div>
+
+</body>
+
+</html>
